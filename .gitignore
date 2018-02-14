@@ -1,3 +1,35 @@
-# IntelliJ
-.idea
+# Intellij
+.idea/
 *.iml
+*.iws
+
+
+# Ignorer tous les fichiers class
+*.class
+
+# Ignorer les objets et les archives
+*.[oa]
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+
+# Properties
+*.properties
+persistence.xml
+
+# Mac
+.DS_Store
+
+# Maven
+log/
+target/
+lib/
+
+# Properties file
+
+
+# Mac
+.DS_Store

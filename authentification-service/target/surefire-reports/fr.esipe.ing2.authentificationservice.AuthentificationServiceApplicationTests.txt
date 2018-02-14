@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: fr.esipe.ing2.authentificationservice.AuthentificationServiceApplicationTests
--------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 9.043 sec - in fr.esipe.ing2.authentificationservice.AuthentificationServiceApplicationTests

@@ -1,8 +1,0 @@
-fr/esipe/ing2/common/ApplicationService.class
-fr/esipe/ing2/common/odt/User.class
-fr/esipe/ing2/common/service/TweetService.class
-fr/esipe/ing2/common/configuration/JpaConfiguration.class
-fr/esipe/ing2/common/util/CustomErrorType.class
-fr/esipe/ing2/common/service/TweetServiceImpl.class
-fr/esipe/ing2/common/repositories/TweetRepository.class
-fr/esipe/ing2/common/model/Tweet.class
