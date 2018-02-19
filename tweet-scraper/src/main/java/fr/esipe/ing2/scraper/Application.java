@@ -58,9 +58,10 @@ public class Application {
         };
 
         FilterQuery fq = new FilterQuery();
-        String keywords[] = {"France", "Germany"};
+        String keywords[] = {"France"};
 
         fq.track(keywords);
+        fq.language("fr");
 
         twitterStream.addListener(listener);
         twitterStream.filter(fq);
