@@ -49,7 +49,6 @@ public class Application {
                 String libelle = status.getText();
                 Tweet tweet = new Tweet(id, followersCount, email, tag, autheur, libelle);
                 System.out.println(tweet);
-
             }
 
             public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
