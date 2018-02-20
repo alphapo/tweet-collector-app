@@ -8,15 +8,20 @@
 		            <thead>
 		            <tr>
 		                <th>Auteur</th>
-		                <th>Détail du tweet</th>
-		                <th width="100"></th>
-		                <th width="100"></th>
+		                <th>Followers</th>
+						<th>email</th>
+		                <th>Hash Tag</th>
+						<th>Auteur</th>
+		                <th>Message</th>
 		            </tr>
 		            </thead>
 		            <tbody>
 		            <tr ng-repeat="u in ctrl.getAllTweets()">
-		                <td>{{u.auteur}}</td>
-		                <td>{{u.libelle}}</td>
+		                <td>{{u.followersCount}}</td>
+		                <td>{{u.email}}</td>
+						<td>{{u.tag}}</td>
+		                <td>{{u.autheur}}</td>
+						<td>{{u.libelle}}</td>
 					</tr>
 		            </tbody>
 		        </table>		
