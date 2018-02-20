@@ -24,11 +24,6 @@
             <artifactId>twitter4j-stream</artifactId>
             <version>4.0.6</version>
         </dependency>
-        <dependency>
-            <groupId>fr.esipe.ing2</groupId>
-            <artifactId>tweet-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <build>

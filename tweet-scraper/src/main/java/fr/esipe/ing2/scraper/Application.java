@@ -1,19 +1,13 @@
 package fr.esipe.ing2.scraper;
 
 import fr.esipe.ing2.common.model.Tweet;
-import fr.esipe.ing2.tweetService.service.TweetService;
+import fr.esipe.ing2.scraper.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.stereotype.Component;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-
-@EntityScan(basePackages = {"fr.esipe.ing2.common"} )
-@EnableJpaRepositories(basePackages = {"fr.esipe.ing2.common.repositories"})
-@SpringBootApplication
-
+@Component
 public class Application {
     /**
      * Main entry of this application.
@@ -24,7 +18,7 @@ public class Application {
 
 
     @Autowired
-    private TweetService tweetService; //Service which will do all data retrieval/manipulation work
+    static TweetService tweetService;
 
     public static void main(String[] args) {
 
@@ -35,7 +29,7 @@ public class Application {
             cb.setOAuthAccessToken("963482168084320256-qPctYL85POgZ8ZQzIlBaM9fnky7utZr");
             cb.setOAuthAccessTokenSecret("dZJa9zou4YjRtHaYS2LP0Fw9OJW2HBrSoIdTp7TPntS62");
 
-            TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+            final TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
             StatusListener listener = new StatusListener() {
 
             public void onStatus(Status status) {
@@ -51,6 +45,7 @@ public class Application {
                 System.out.println(tweet);
 
                 tweetService.saveTweet(tweet);
+
 
             }
 
@@ -85,4 +80,5 @@ public class Application {
         twitterStream.filter(fq);
 
     }
+
 }

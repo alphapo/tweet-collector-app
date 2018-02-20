@@ -6,7 +6,6 @@ import java.util.List;
 
 public interface TweetService{
 
-        void saveTweet(Tweet tweet);
         List<Tweet> findAllTweet();
 
 
