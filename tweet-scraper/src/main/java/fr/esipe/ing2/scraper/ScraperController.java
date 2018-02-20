@@ -14,7 +14,8 @@ public class ScraperController {
 
     // -------------------Save tweet---------------------------------------------
 
-    public void saveTWeet(Tweet tweet) {
+    public void saveTweet(Tweet tweet) {
+
         tweetService.saveTweet(tweet);
     }
 }

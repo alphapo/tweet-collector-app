@@ -9,23 +9,34 @@ import java.io.Serializable;
 @Table(name="tweet")
 public class Tweet implements Serializable {
 
-    public Tweet(String auteur, String libelle){
+    public Tweet(Long id, int follewersCount, String email, String tag, String auteur, String libelle){
+        this.id = id;
+        this.follewersCount = follewersCount;
+        this.email = email;
+        this.tag = tag;
         this.auteur = auteur;
-        this.auteur = libelle;
-    }
-    public Tweet(){
+        this.libelle = libelle;
     }
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
-    @Column(name="libelle")
-    private String libelle;
+    @Column(name="follewersCount")
+    private int follewersCount;
+
+    @Column(name="email")
+    private String email;
+
+    @Column(name="tag")
+    private String tag;
 
     @NotEmpty
     @Column(name="auteur")
     private String auteur;
+
+    @NotEmpty
+    @Column(name="libelle")
+    private String libelle;
 
     public Long getId() {
         return id;
@@ -33,6 +44,30 @@ public class Tweet implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getFollewersCount() {
+        return follewersCount;
+    }
+
+    public void setFollewersCount(int follewersCount) {
+        this.follewersCount = follewersCount;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
     }
 
     public String getAuteur() {
@@ -51,11 +86,15 @@ public class Tweet implements Serializable {
         this.libelle = libelle;
     }
 
-
     @Override
     public String toString() {
-        return "Tweet [id=" + id + ", libelle=" + libelle+"]";
+        return "Tweet{" +
+                "id=" + id +
+                ", follewersCount=" + follewersCount +
+                ", email='" + email + '\'' +
+                ", tag='" + tag + '\'' +
+                ", auteur='" + auteur + '\'' +
+                ", libelle='" + libelle + '\'' +
+                '}';
     }
-
-
 }

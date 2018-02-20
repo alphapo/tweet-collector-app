@@ -1,13 +1,13 @@
 ---
 server:
-  port: 8080
+  port: 8181
   contextPath: /ScrapperService
 ---
 spring:
-  profiles:  prod
+  profiles:  cloud
 datasource:
   sampleapp:
-    url: jdbc:h2:~/test
+    url: jdbc:h2:~/tweet_cloud
     username: SA
     password:
     driverClassName: org.h2.Driver
@@ -26,12 +26,11 @@ datasource:
     url: jdbc:mysql://localhost:3306/tweetBD
     username: root
     password: root
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     defaultSchema:
     maxPoolSize: 20
     hibernate:
-      hbm2ddl.method: update
+      hbm2ddl.method: drop-create
       show_sql: true
       format_sql: true
       dialect: org.hibernate.dialect.MySQLDialect
-
