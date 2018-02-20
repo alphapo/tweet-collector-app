@@ -17,6 +17,10 @@ public class Tweet implements Serializable {
         this.auteur = auteur;
         this.libelle = libelle;
     }
+
+    public Tweet() {
+    }
+
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;

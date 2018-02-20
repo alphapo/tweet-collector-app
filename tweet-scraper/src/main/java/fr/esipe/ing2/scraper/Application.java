@@ -1,12 +1,19 @@
 package fr.esipe.ing2.scraper;
 
 import fr.esipe.ing2.common.model.Tweet;
-import org.springframework.boot.SpringApplication;
+import fr.esipe.ing2.tweetService.service.TweetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-@SpringBootApplication(scanBasePackages={"fr.esipe.ing2.scraper"})// same as @Configuration @EnableAutoConfiguration @ComponentScan
+
+@EntityScan(basePackages = {"fr.esipe.ing2.common"} )
+@EnableJpaRepositories(basePackages = {"fr.esipe.ing2.common.repositories"})
+@SpringBootApplication
+
 public class Application {
     /**
      * Main entry of this application.
@@ -14,6 +21,11 @@ public class Application {
      * @param args arguments doesn't take effect with this example
      * @throws TwitterException when Twitter service or network is unavailable
      */
+
+
+    @Autowired
+    private TweetService tweetService; //Service which will do all data retrieval/manipulation work
+
     public static void main(String[] args) {
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -36,9 +48,10 @@ public class Application {
                 String autheur = status.getUser().getName();
                 String libelle = status.getText();
                 Tweet tweet = new Tweet(id, followersCount, email, tag, autheur, libelle);
+                System.out.println(tweet);
 
-                ScraperController scraperController = new ScraperController();
-                scraperController.saveTweet(tweet);
+                tweetService.saveTweet(tweet);
+
             }
 
             public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
