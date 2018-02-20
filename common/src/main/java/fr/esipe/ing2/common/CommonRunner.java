@@ -5,12 +5,13 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
+
 @Import(JpaConfiguration.class)
-@SpringBootApplication(scanBasePackages={"fr.esipe.ing2"})// same as @Configuration @EnableAutoConfiguration @ComponentScan
-public class ApplicationService {
+@SpringBootApplication(scanBasePackages={"fr.esipe.ing2.common"})// same as @Configuration @EnableAutoConfiguration @ComponentScan
+public class CommonRunner {
 
-	public static void main(String[] args) {
+        public static void main(String[] args) {
 
-		SpringApplication.run(ApplicationService.class, args);
-	}
+            SpringApplication.run(CommonRunner.class, args);
+        }
 }

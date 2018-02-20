@@ -1,25 +1,28 @@
-package fr.esipe.ing2.controller;
+package fr.esipe.ing2.tweetService;
 
 import fr.esipe.ing2.common.model.Tweet;
-import fr.esipe.ing2.common.service.TweetService;
+import fr.esipe.ing2.tweetService.service.TweetService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
 @RequestMapping("/api")
 public class TweetController {
 
     @Autowired
-    TweetService tweetService; //Service which will do all data retrieval/manipulation work
+     TweetService tweetService; //Service which will do all data retrieval/manipulation work
 
     // -------------------Retrieve All tweet---------------------------------------------
 
     @GetMapping(value = "/tweet")
-    public ResponseEntity<List<Tweet>> listAllUsers() {
+    public ResponseEntity<List<Tweet>> listAllTweets() {
         List<Tweet> tweet = tweetService.findAllTweet();
         if (tweet.isEmpty()) {
             return new ResponseEntity(HttpStatus.NO_CONTENT);

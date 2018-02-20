@@ -1,12 +1,19 @@
 package fr.esipe.ing2.scraper;
 
 import fr.esipe.ing2.common.model.Tweet;
-import org.springframework.boot.SpringApplication;
+import fr.esipe.ing2.tweetService.service.TweetService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
-@SpringBootApplication(scanBasePackages={"fr.esipe.ing2.scraper"})// same as @Configuration @EnableAutoConfiguration @ComponentScan
+
+@EntityScan(basePackages = {"fr.esipe.ing2.common"} )
+@EnableJpaRepositories(basePackages = {"fr.esipe.ing2.common.repositories"})
+@SpringBootApplication
+
 public class Application {
     /**
      * Main entry of this application.
@@ -14,26 +21,35 @@ public class Application {
      * @param args arguments doesn't take effect with this example
      * @throws TwitterException when Twitter service or network is unavailable
      */
-    public static void main(String[] args) throws TwitterException {
-        SpringApplication.run(Application.class, args);
+
+
+    @Autowired
+    private TweetService tweetService; //Service which will do all data retrieval/manipulation work
+
+    public static void main(String[] args) {
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true);
-            cb.setOAuthConsumerKey("xvz1evFS4wEEPTGEFPHBog");
-            cb.setOAuthConsumerSecret("xvz1evFS4wEEPTGEFPHBog");
-            cb.setOAuthAccessToken("370773112-GmHxMAgYyLbNEtIKZeRNFsMKPR9EyMZeS9weJAEb");
-            cb.setOAuthAccessTokenSecret("xvz1evFS4wEEPTGEFPHBog");
+            cb.setOAuthConsumerKey("2LBo8gRYINFoOdPxuor05BO8C");
+            cb.setOAuthConsumerSecret("zj8g1tEchpEcycVcub1NZR2xjJ7Pftr6VScTXqElro98Xg9Yt4");
+            cb.setOAuthAccessToken("963482168084320256-qPctYL85POgZ8ZQzIlBaM9fnky7utZr");
+            cb.setOAuthAccessTokenSecret("dZJa9zou4YjRtHaYS2LP0Fw9OJW2HBrSoIdTp7TPntS62");
 
             TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
             StatusListener listener = new StatusListener() {
 
             public void onStatus(Status status) {
-                System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
 
                 ////Enrégistrement du tweet////
-                ScraperController scraperController = new ScraperController();
-                Tweet tweet = new Tweet(status.getUser().getScreenName(), status.getText());
-                scraperController.saveTWeet(tweet);
+                Long id = status.getUser().getId();
+                int followersCount = status.getUser().getFollowersCount();
+                String email = status.getUser().getEmail();
+                String tag = status.getUser().getScreenName();
+                String autheur = status.getUser().getName();
+                String libelle = status.getText();
+                Tweet tweet = new Tweet(id, followersCount, email, tag, autheur, libelle);
+                System.out.println(tweet);
+
             }
 
             public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
