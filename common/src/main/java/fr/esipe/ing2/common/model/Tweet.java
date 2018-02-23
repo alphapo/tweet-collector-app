@@ -23,7 +23,7 @@ public class Tweet implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+    private Double id;
 
     @Column(name="follewersCount")
     private int follewersCount;

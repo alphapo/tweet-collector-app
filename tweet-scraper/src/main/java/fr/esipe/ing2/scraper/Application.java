@@ -1,13 +1,17 @@
 package fr.esipe.ing2.scraper;
 
 import fr.esipe.ing2.common.model.Tweet;
-import fr.esipe.ing2.scraper.service.TweetService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import twitter4j.*;
+import org.apache.log4j.Logger;
 import twitter4j.conf.ConfigurationBuilder;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Properties;
+import java.sql.*;
+import org.apache.log4j.Logger;
+import org.apache.commons.lang.StringEscapeUtils;
 
-@Component
 public class Application {
     /**
      * Main entry of this application.
@@ -16,11 +20,12 @@ public class Application {
      * @throws TwitterException when Twitter service or network is unavailable
      */
 
+    private static final Logger logger = Logger.getLogger(Application.class);
 
-    @Autowired
-    static TweetService tweetService;
+
 
     public static void main(String[] args) {
+
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
             cb.setDebugEnabled(true);
@@ -42,11 +47,40 @@ public class Application {
                 String autheur = status.getUser().getName();
                 String libelle = status.getText();
                 Tweet tweet = new Tweet(id, followersCount, email, tag, autheur, libelle);
-                System.out.println(tweet);
 
-                tweetService.saveTweet(tweet);
+                logger.info("tweet id: "+tweet.getId()+"," +
+                            "tweet followers numbers: "+tweet.getFollewersCount()+","+
+                            "tweet email: "+tweet.getEmail()+","+
+                            "tweet tag: "+StringEscapeUtils.escapeJava(tweet.getTag())+","+
+                            "tweet author: "+StringEscapeUtils.escapeJava(tweet.getAuteur())+","+
+                            "tweet title: "+StringEscapeUtils.escapeJava(tweet.getLibelle())
+                            );
 
+                try {
+                    Properties properties = loadConfigurationFile("conf.properties");
 
+                    Connection conn = null;
+                    Statement st = null;
+                    Class.forName(properties.getProperty("driverClassName")).newInstance();
+                    conn = DriverManager.getConnection(
+                            properties.getProperty("url"),
+                            properties.getProperty("username"),
+                            properties.getProperty("password"));
+
+                    st = conn.createStatement();
+                    st.executeUpdate("insert into tweet " +
+                            "VALUES("+ tweet.getId() + "," +
+                            "" + tweet.getFollewersCount() + "," +
+                            "\"" + tweet.getEmail() + "\"," +
+                            "\"" + StringEscapeUtils.escapeJava(tweet.getTag()) + "\"," +
+                            "\"" + StringEscapeUtils.escapeJava(tweet.getAuteur()) + "\"," +
+                            "\"" + StringEscapeUtils.escapeJava(tweet.getLibelle()) + "\")" +
+                            "");
+                }catch(SQLException se) {
+                    se.printStackTrace();
+                } catch(Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
@@ -80,5 +114,32 @@ public class Application {
         twitterStream.filter(fq);
 
     }
+
+    static Properties loadConfigurationFile(String propertiesFile){
+
+        Properties properties = new Properties();
+        InputStream input = null;
+
+        try {
+
+            input = Application.class.getClassLoader().getResourceAsStream(propertiesFile);
+            // load a properties file
+            properties.load(input);
+
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } finally {
+            if (input != null) {
+                try {
+                    input.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return properties;
+
+    }
+
 
 }
