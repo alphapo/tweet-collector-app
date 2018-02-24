@@ -7,11 +7,9 @@ import twitter4j.conf.ConfigurationBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Enumeration;
 import java.util.Properties;
 import java.sql.*;
 
-import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 
 public class Application {
