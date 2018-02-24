@@ -4,11 +4,13 @@ import fr.esipe.ing2.common.model.Tweet;
 import twitter4j.*;
 import org.apache.log4j.Logger;
 import twitter4j.conf.ConfigurationBuilder;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Properties;
 import java.sql.*;
+
 import org.apache.log4j.Logger;
 import org.apache.commons.lang.StringEscapeUtils;
 
@@ -23,19 +25,18 @@ public class Application {
     private static final Logger logger = Logger.getLogger(Application.class);
 
 
-
     public static void main(String[] args) {
 
 
         ConfigurationBuilder cb = new ConfigurationBuilder();
-            cb.setDebugEnabled(true);
-            cb.setOAuthConsumerKey("2LBo8gRYINFoOdPxuor05BO8C");
-            cb.setOAuthConsumerSecret("zj8g1tEchpEcycVcub1NZR2xjJ7Pftr6VScTXqElro98Xg9Yt4");
-            cb.setOAuthAccessToken("963482168084320256-qPctYL85POgZ8ZQzIlBaM9fnky7utZr");
-            cb.setOAuthAccessTokenSecret("dZJa9zou4YjRtHaYS2LP0Fw9OJW2HBrSoIdTp7TPntS62");
+        cb.setDebugEnabled(true);
+        cb.setOAuthConsumerKey("2LBo8gRYINFoOdPxuor05BO8C");
+        cb.setOAuthConsumerSecret("zj8g1tEchpEcycVcub1NZR2xjJ7Pftr6VScTXqElro98Xg9Yt4");
+        cb.setOAuthAccessToken("963482168084320256-qPctYL85POgZ8ZQzIlBaM9fnky7utZr");
+        cb.setOAuthAccessTokenSecret("dZJa9zou4YjRtHaYS2LP0Fw9OJW2HBrSoIdTp7TPntS62");
 
-            final TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
-            StatusListener listener = new StatusListener() {
+        final TwitterStream twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
+        StatusListener listener = new StatusListener() {
 
             public void onStatus(Status status) {
 
@@ -48,37 +49,39 @@ public class Application {
                 String libelle = status.getText();
                 Tweet tweet = new Tweet(id, followersCount, email, tag, autheur, libelle);
 
-                logger.info("tweet id: "+tweet.getId()+"," +
-                            "tweet followers numbers: "+tweet.getFollewersCount()+","+
-                            "tweet email: "+tweet.getEmail()+","+
-                            "tweet tag: "+StringEscapeUtils.escapeJava(tweet.getTag())+","+
-                            "tweet author: "+StringEscapeUtils.escapeJava(tweet.getAuteur())+","+
-                            "tweet title: "+StringEscapeUtils.escapeJava(tweet.getLibelle())
-                            );
+                logger.info("tweet id: " + tweet.getIdTweet() + "," +
+                        "tweet followers numbers: " + tweet.getFollewersCount() + "," +
+                        "tweet author: " + StringEscapeUtils.escapeJava(tweet.getAuteur()) + "," +
+                        "tweet tag: " + StringEscapeUtils.escapeJava(tweet.getTag())
+                );
 
+                Connection conn = null;
+                Statement st = null;
                 try {
+                /*  load database properties */
                     Properties properties = loadConfigurationFile("conf.properties");
 
-                    Connection conn = null;
-                    Statement st = null;
+                /*  initialize connection   */
                     Class.forName(properties.getProperty("driverClassName")).newInstance();
                     conn = DriverManager.getConnection(
                             properties.getProperty("url"),
                             properties.getProperty("username"),
                             properties.getProperty("password"));
 
+                /*  Persist tweet   */
                     st = conn.createStatement();
                     st.executeUpdate("insert into tweet " +
-                            "VALUES("+ tweet.getId() + "," +
-                            "" + tweet.getFollewersCount() + "," +
+                            "VALUES( DEFAULT" + "," +
+                            tweet.getIdTweet() + "," +
+                            tweet.getFollewersCount() + "," +
                             "\"" + tweet.getEmail() + "\"," +
                             "\"" + StringEscapeUtils.escapeJava(tweet.getTag()) + "\"," +
                             "\"" + StringEscapeUtils.escapeJava(tweet.getAuteur()) + "\"," +
                             "\"" + StringEscapeUtils.escapeJava(tweet.getLibelle()) + "\")" +
                             "");
-                }catch(SQLException se) {
+                } catch (SQLException se) {
                     se.printStackTrace();
-                } catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -115,7 +118,7 @@ public class Application {
 
     }
 
-    static Properties loadConfigurationFile(String propertiesFile){
+    static Properties loadConfigurationFile(String propertiesFile) {
 
         Properties properties = new Properties();
         InputStream input = null;

@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Table(name="tweet")
 public class Tweet implements Serializable {
 
-    public Tweet(Long id, int follewersCount, String email, String tag, String auteur, String libelle){
-        this.id = id;
+    public Tweet(Long idTweet, int follewersCount, String email, String tag, String auteur, String libelle){
+        this.idTweet = idTweet;
         this.follewersCount = follewersCount;
         this.email = email;
         this.tag = tag;
@@ -23,7 +23,10 @@ public class Tweet implements Serializable {
 
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Double id;
+    private Integer id;
+
+    @Column(name="id_tweet")
+    private Long idTweet;
 
     @Column(name="follewersCount")
     private int follewersCount;
@@ -42,12 +45,12 @@ public class Tweet implements Serializable {
     @Column(name="libelle")
     private String libelle;
 
-    public Long getId() {
-        return id;
+    public Long getIdTweet() {
+        return idTweet;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTweet(Long id) {
+        this.idTweet = idTweet;
     }
 
     public int getFollewersCount() {
@@ -93,7 +96,7 @@ public class Tweet implements Serializable {
     @Override
     public String toString() {
         return "Tweet{" +
-                "id=" + id +
+                "IdTweet=" + idTweet +
                 ", follewersCount=" + follewersCount +
                 ", email='" + email + '\'' +
                 ", tag='" + tag + '\'' +

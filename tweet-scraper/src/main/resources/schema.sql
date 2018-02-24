@@ -1,9 +1,10 @@
 CREATE TABLE tweet (
-    id double ,
+    id int AUTO_INCREMENT ,
+    id_tweet float ,
     follewersCount int,
     email VARCHAR(30),
     tag VARCHAR(30),
-    auteur VARCHAR(50),
+    auteur VARCHAR(100),
     libelle TEXT,
     PRIMARY KEY (id)
 
