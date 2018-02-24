@@ -5,25 +5,24 @@
 		<div class="panel-body">
 			<div class="table-responsive">
 		        <table class="table table-hover">
-		            <thead>
-		            <tr>
-		                <th>Auteur</th>
-		                <th>Followers</th>
-						<th>email</th>
-		                <th>Hash Tag</th>
-						<th>Auteur</th>
-		                <th>Message</th>
-		            </tr>
-		            </thead>
-		            <tbody>
-		            <tr ng-repeat="u in ctrl.getAllTweets()">
-		                <td>{{u.followersCount}}</td>
-		                <td>{{u.email}}</td>
-						<td>{{u.tag}}</td>
-		                <td>{{u.autheur}}</td>
-						<td>{{u.libelle}}</td>
-					</tr>
-		            </tbody>
+                    <thead>
+                    <tr>
+                        <th>Auteur</th>
+                        <th>Followers</th>
+                        <th>email</th>
+                        <th>Hash Tag</th>
+                        <th>Message</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="u in ctrl.getAllTweets()">
+                        <td>{{u.auteur}}</td>
+                        <td>{{u.follewersCount}}</td>
+                        <td>{{u.email}}</td>
+                        <td>{{u.tag}}</td>
+                        <td>{{u.libelle}}</td>
+                    </tr>
+                    </tbody>
 		        </table>		
 			</div>
 		</div>
