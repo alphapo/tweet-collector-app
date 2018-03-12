@@ -5,7 +5,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Import;
 
-
 @Import(JpaConfiguration.class)
 @SpringBootApplication(scanBasePackages={"fr.esipe.ing2.tweetService", "fr.esipe.ing2.common"})// same as @Configuration @EnableAutoConfiguration @ComponentScan
 public class ApplicationRunner {

@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/authApi")
-public class Authentication {
+public class AuthenticationController {
 
     @GetMapping(value = "/{userId}/{password}")
-    public ResponseEntity<?> getUser(@PathVariable(value = "userId") String userId,
+    public ResponseEntity<?> findUser(@PathVariable(value = "userId") String userId,
                                         @PathVariable(value = "password") String password) {
         User user= new User(userId,password);
         return new ResponseEntity<String>(user.toString(), HttpStatus.OK);

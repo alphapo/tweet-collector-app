@@ -36,12 +36,6 @@
             <artifactId>HikariCP</artifactId>
             <version>2.4.7</version>
         </dependency>
-        <!-- Add H2 database support [for running with local profile] -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>${h2.version}</version>
-        </dependency>
         <!-- Add MySQL database support [for running with PRODUCTION profile] -->
         <dependency>
             <groupId>mysql</groupId>
