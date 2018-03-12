@@ -1,8 +1,8 @@
 var app = angular.module('serviceApp',['ui.router','ngStorage']);
 
 app.constant('urls', {
-    BASE: 'http://localhost:8083/ApplicationService',
-    TWEET_SERVICE_API : 'http://localhost:8083/ApplicationService/api/tweet'
+    BASE: 'http://tweet-service.southcentralus.cloudapp.azure.com:8083/ApplicationService',
+    TWEET_SERVICE_API : 'http://tweet-service.southcentralus.cloudapp.azure.com:8083/ApplicationService/api/tweet'
 });
 
 app.config(['$stateProvider', '$urlRouterProvider',

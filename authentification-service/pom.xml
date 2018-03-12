@@ -21,11 +21,19 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>fr.esipe.ing2</groupId>
             <artifactId>common</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.11</version>
+        </dependency>
+
     </dependencies>
 
     <build>

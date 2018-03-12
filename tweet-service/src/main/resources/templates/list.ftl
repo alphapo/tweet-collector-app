@@ -18,7 +18,7 @@
                     <tr ng-repeat="u in ctrl.getAllTweets()">
                         <td>{{u.auteur}}</td>
                         <td>{{u.follewersCount}}</td>
-                        <td>{{u.email}}</td>
+                        <td ng-if="u.email == null">{{u.email}}</td>
                         <td>{{u.tag}}</td>
                         <td>{{u.libelle}}</td>
                     </tr>
