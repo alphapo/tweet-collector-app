@@ -7,9 +7,13 @@ spring:
   profiles: local, default
 datasource:
   sampleapp:
-    url: jdbc:mysql://tweet-db.southcentralus.cloudapp.azure.com:3306/tweetbd
-    username: demo
-    password: demo
+#    url: jdbc:mysql://tweet-db.southcentralus.cloudapp.azure.com:3306/tweetbd
+#    username: demo
+#    password: demo
+#
+    url: jdbc:mysql://localhost:3306/tweetbd
+    username: root
+    password: root
     driverClassName: com.mysql.cj.jdbc.Driver
     defaultSchema:
     maxPoolSize: 20

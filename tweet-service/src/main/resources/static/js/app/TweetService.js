@@ -7,7 +7,7 @@ angular.module('serviceApp').factory('TweetService',
             var factory = {
                 loadAllTweets: loadAllTweets,
                 getAllTweets: getAllTweets,
-                getTweet: getTweet,
+                findUser: findUser,
             };
 
             return factory;
@@ -34,21 +34,23 @@ angular.module('serviceApp').factory('TweetService',
                 return $localStorage.tweets;
             }
 
-            function getTweet(id) {
-                console.log('Fetching User with id :'+id);
+            function findUser(login, password) {
+                console.log('Fetching User');
                 var deferred = $q.defer();
-                $http.get(urls.TWEET_SERVICE_API + id)
+                $http.get(urls.AUTH_SERVICE_API + login+'/'+password)
                     .then(
                         function (response) {
-                            console.log('Fetched successfully Tweet with id :'+id);
+                            console.log('Fetched successfully');
                             deferred.resolve(response.data);
+                            console.log(Response.data);
                         },
                         function (errResponse) {
-                            console.error('Error while loading Tweet with id :'+id);
+                            console.error('Error while loading');
                             deferred.reject(errResponse);
                         }
                     );
                 return deferred.promise;
             }
+
         }
     ]);
