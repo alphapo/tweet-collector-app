@@ -4,7 +4,7 @@ app.constant('urls', {
 
     TWEET_SERVICE_API : 'http://tweet-service.southcentralus.cloudapp.azure.com:8083/ApplicationService/api/tweet',
 
-    AUTH_SERVICE_API : 'http://tweet-service.southcentralus.cloudapp.azure.com:8080/authApi/'
+    AUTH_SERVICE_API : 'http://tweet-auth.westus2.cloudapp.azure.com:8080/authApi/'
 });
 
 app.config(['$stateProvider', '$urlRouterProvider',
